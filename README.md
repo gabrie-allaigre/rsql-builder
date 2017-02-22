@@ -40,5 +40,8 @@ Group :
 ```java
 RsqlBuilder.newBuilder().string("name").eq("gaby").and().openGroup().intNum("age").gt(20).or().intNum("age").lte(40).closeGroup().query();
 // name=='gaby';(age=gt=20,age=le=40)
-
+RsqlBuilder.rsql().string("name").eq("gaby").and().openGroup().openGroup().intNum("age").gt(20).or().intNum("age").lte(40).closeGroup().and().temporal("birthday")
+                .after(LocalDate.parse("1970-01-01"), true).and().temporal("birthday").before(LocalDate.parse("1990-05-10"), true).closeGroup().query();
+// name=='gaby';((age=gt=20,age=le=40);birthday=gt='1970-01-01';birthday=lt='1990-05-10')
 ```
+

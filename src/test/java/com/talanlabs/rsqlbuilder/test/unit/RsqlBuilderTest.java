@@ -147,16 +147,33 @@ public class RsqlBuilderTest {
                         .closeGroup().query()).isEqualTo("((name=='gaby'),(name=='sandra'));(age=gt=20,age=le=40)");
         softAssertions.assertThat(RsqlBuilder.rsql().and(RsqlBuilder.rsql().string("name").eq("gaby"), RsqlBuilder.rsql().intNum("age").gt(20).or().intNum("age").lte(40)).query())
                 .isEqualTo("((name=='gaby');(age=gt=20,age=le=40))");
+        softAssertions.assertThat(RsqlBuilder.rsql().string("name").eq("gaby").and().openGroup().openGroup().intNum("age").gt(20).or().intNum("age").lte(40).closeGroup().and().temporal("birthday")
+                .after(LocalDate.parse("1970-01-01"), true).and().temporal("birthday").before(LocalDate.parse("1990-05-10"), true).closeGroup().query())
+                .isEqualTo("name=='gaby';((age=gt=20,age=le=40);birthday=ge='1970-01-01';birthday=le='1990-05-10')");
         softAssertions.assertAll();
     }
 
     @Test
     public void testTemporalRsqlBuilder() {
         SoftAssertions softAssertions = new SoftAssertions();
-        softAssertions.assertThat(RsqlBuilder.rsql().temporal("date").after(LocalDate.parse("2017-02-21"), true).query()).isEqualTo("date=gt='2017-02-21'");
-        softAssertions.assertThat(RsqlBuilder.rsql().temporal("date").before(LocalDateTime.parse("2017-02-21T13:19:45.311"), false).query()).isEqualTo("date=le='2017-02-21T13:19:45.311'");
-        softAssertions.assertThat(RsqlBuilder.rsql().temporal("date").before(LocalTime.parse("13:19:45.311"), true).query()).isEqualTo("date=lt='13:19:45.311'");
-        softAssertions.assertThat(RsqlBuilder.rsql().temporal("date").after(Instant.parse("2017-02-21T12:19:45.311Z"), false).query()).isEqualTo("date=ge='2017-02-21T12:19:45.311Z'");
+        softAssertions.assertThat(RsqlBuilder.rsql().temporal("date").after(LocalDate.parse("2017-02-21"), true).query()).isEqualTo("date=ge='2017-02-21'");
+        softAssertions.assertThat(RsqlBuilder.rsql().temporal("date").before(LocalDateTime.parse("2017-02-21T13:19:45.311"), false).query()).isEqualTo("date=lt='2017-02-21T13:19:45.311'");
+        softAssertions.assertThat(RsqlBuilder.rsql().temporal("date").before(LocalTime.parse("13:19:45.311"), true).query()).isEqualTo("date=le='13:19:45.311'");
+        softAssertions.assertThat(RsqlBuilder.rsql().temporal("date").after(Instant.parse("2017-02-21T12:19:45.311Z"), false).query()).isEqualTo("date=gt='2017-02-21T12:19:45.311Z'");
+        softAssertions.assertAll();
+    }
+
+    @Test
+    public void testDirectAndOrRsqlBuilder() {
+        SoftAssertions softAssertions = new SoftAssertions();
+        softAssertions.assertThat(RsqlBuilder.rsql().or(RsqlBuilder.rsql().string("name").eq("gaby"), RsqlBuilder.rsql().string("name").eq("sandra")).query())
+                .isEqualTo("((name=='gaby'),(name=='sandra'))");
+        softAssertions
+                .assertThat(RsqlBuilder.rsql().or(RsqlBuilder.rsql().string("name").eq("gaby"), RsqlBuilder.rsql().string("name").eq("sandra"), RsqlBuilder.rsql().string("name").eq("nico")).query())
+                .isEqualTo("((name=='gaby'),(name=='sandra'),(name=='nico'))");
+        softAssertions
+                .assertThat(RsqlBuilder.rsql().and(RsqlBuilder.rsql().string("name").eq("gaby"), RsqlBuilder.rsql().string("name").eq("sandra"), RsqlBuilder.rsql().string("name").eq("nico")).query())
+                .isEqualTo("((name=='gaby');(name=='sandra');(name=='nico'))");
         softAssertions.assertAll();
     }
 }

@@ -2,6 +2,7 @@ package com.talanlabs.rsqlbuilder.impls;
 
 import com.talanlabs.rsqlbuilder.RsqlBuilder;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -132,9 +133,10 @@ public abstract class AbstractField<B> {
      * @param ls others query
      */
     public B and(LogicalQueryBuilder l1, LogicalQueryBuilder l2, LogicalQueryBuilder... ls) {
-        List<LogicalQueryBuilder> conditions = Arrays.asList(l1, l2);
-        conditions.addAll(Arrays.asList(ls));
-        return and(conditions);
+        List<LogicalQueryBuilder> logicals = new ArrayList<>();
+        logicals.addAll(Arrays.asList(l1, l2));
+        logicals.addAll(Arrays.asList(ls));
+        return and(logicals);
     }
 
     /**
@@ -154,9 +156,10 @@ public abstract class AbstractField<B> {
      * @param ls others query
      */
     public B or(LogicalQueryBuilder l1, LogicalQueryBuilder l2, LogicalQueryBuilder... ls) {
-        List<LogicalQueryBuilder> conditions = Arrays.asList(l1, l2);
-        conditions.addAll(Arrays.asList(ls));
-        return or(conditions);
+        List<LogicalQueryBuilder> logicals = new ArrayList<>();
+        logicals.addAll(Arrays.asList(l1, l2));
+        logicals.addAll(Arrays.asList(ls));
+        return or(logicals);
     }
 
     /**

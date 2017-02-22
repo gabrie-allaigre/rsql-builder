@@ -16,22 +16,22 @@ public class TemporalProperty<B, T extends Temporal> extends AbstractEquitablePr
     }
 
     /**
-     * Less to, use ==lt==
+     * Before temporal, use ==lt== or ==le== (include)
      *
-     * @param value     temporal value
-     * @param exclusive
+     * @param value   temporal value
+     * @param include include value <=
      */
-    public final B before(T value, boolean exclusive) {
-        return exclusive ? fieldBuilder.lt(field, toString(value)) : fieldBuilder.lte(field, toString(value));
+    public final B before(T value, boolean include) {
+        return include ? fieldBuilder.lte(field, toString(value)) : fieldBuilder.lt(field, toString(value));
     }
 
     /**
-     * Less or equals, use ==le==
+     * After temporal, use ==gt== or ==ge== (include)
      *
-     * @param value     temporal value
-     * @param exclusive
+     * @param value   temporal value
+     * @param include include value <=
      */
-    public final B after(T value, boolean exclusive) {
-        return exclusive ? fieldBuilder.gt(field, toString(value)) : fieldBuilder.gte(field, toString(value));
+    public final B after(T value, boolean include) {
+        return include ? fieldBuilder.gte(field, toString(value)) : fieldBuilder.gt(field, toString(value));
     }
 }

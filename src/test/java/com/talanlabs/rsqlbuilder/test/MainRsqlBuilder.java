@@ -18,5 +18,10 @@ public class MainRsqlBuilder {
         System.out.println(RsqlBuilder.rsql().temporal("date").before(LocalDateTime.now(), false).query());
         System.out.println(RsqlBuilder.rsql().temporal("date").after(LocalTime.now(), false).query());
         System.out.println(RsqlBuilder.rsql().temporal("date").after(Instant.now(), false).query());
+
+        System.out.println(RsqlBuilder.rsql().string("name").eq("gaby").and().openGroup().openGroup().intNum("age").gt(20).or().intNum("age").lte(40).closeGroup().and().temporal("birthday")
+                .after(LocalDate.parse("1970-01-01"), true).and().temporal("birthday").before(LocalDate.parse("1990-05-10"), true).closeGroup().query());
+
+        System.out.println(RsqlBuilder.rsql().or(RsqlBuilder.rsql().string("name").eq("gaby"), RsqlBuilder.rsql().string("name").eq("sandra")).query());
     }
 }
