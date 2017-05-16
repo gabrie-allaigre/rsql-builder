@@ -16,7 +16,7 @@ public class TemporalProperty<B, T extends Temporal> extends AbstractEquitablePr
     }
 
     /**
-     * Before temporal, use ==lt== or ==le== (include)
+     * Before temporal, use =lt= or =le= (include)
      *
      * @param value   temporal value
      * @param include include value <=
@@ -26,10 +26,10 @@ public class TemporalProperty<B, T extends Temporal> extends AbstractEquitablePr
     }
 
     /**
-     * After temporal, use ==gt== or ==ge== (include)
+     * After temporal, use =gt= or =ge= (include)
      *
      * @param value   temporal value
-     * @param include include value <=
+     * @param include include value >=
      */
     public final B after(T value, boolean include) {
         return include ? fieldBuilder.gte(field, toString(value)) : fieldBuilder.gt(field, toString(value));
