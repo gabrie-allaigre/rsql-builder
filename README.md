@@ -9,7 +9,7 @@ Use with [rsql-parser](https://github.com/jirutka/rsql-parser)
     <dependency>
         <groupId>com.talanlabs</groupId>
         <artifactId>rsql-builder</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </dependency>
 </dependencies>
 ```
@@ -35,6 +35,8 @@ RsqlBuilder.newBuilder().string("name").in("gaby","sandra").query();
 // name=in=('gaby','sandra')
 RsqlBuilder.newBuilder().temporal("birthday").before(LocalDate.parse("1990-05-10"), true).query();
 // birthday=le='1990-05-10'
+RsqlBuilder.newBuilder().property("address").isNull().query();
+// address=na=''
 ```
 
 Group :

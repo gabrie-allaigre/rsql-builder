@@ -60,6 +60,16 @@ public abstract class AbstractField<B> {
     }
 
     /**
+     * Is Null to, use =na=
+     *
+     * @param field name
+     */
+    public B isNull(String field) {
+        context.append(field).append(Operator.IsNull.getSymbol()).append("''");
+        return nextBuilder();
+    }
+
+    /**
      * Less, use ==lt==
      *
      * @param field name

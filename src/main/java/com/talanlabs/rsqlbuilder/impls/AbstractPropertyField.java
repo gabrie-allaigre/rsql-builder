@@ -1,15 +1,7 @@
 package com.talanlabs.rsqlbuilder.impls;
 
 import com.talanlabs.rsqlbuilder.RsqlBuilder;
-import com.talanlabs.rsqlbuilder.impls.properties.BooleanProperty;
-import com.talanlabs.rsqlbuilder.impls.properties.DoubleProperty;
-import com.talanlabs.rsqlbuilder.impls.properties.EnumProperty;
-import com.talanlabs.rsqlbuilder.impls.properties.FloatProperty;
-import com.talanlabs.rsqlbuilder.impls.properties.IntegerProperty;
-import com.talanlabs.rsqlbuilder.impls.properties.LongProperty;
-import com.talanlabs.rsqlbuilder.impls.properties.ShortProperty;
-import com.talanlabs.rsqlbuilder.impls.properties.StringProperty;
-import com.talanlabs.rsqlbuilder.impls.properties.TemporalProperty;
+import com.talanlabs.rsqlbuilder.impls.properties.*;
 
 import java.time.temporal.Temporal;
 
@@ -80,6 +72,15 @@ public abstract class AbstractPropertyField<B> extends AbstractField<B> {
      */
     public LongProperty<B> longNum(String field) {
         return new LongProperty<B>(field, this);
+    }
+
+    /**
+     * String field
+     *
+     * @param field a name
+     */
+    public Property<B> property(String field) {
+        return new Property<>(field, this);
     }
 
     /**
