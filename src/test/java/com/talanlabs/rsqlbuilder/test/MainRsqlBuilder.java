@@ -10,6 +10,7 @@ import java.time.LocalTime;
 public class MainRsqlBuilder {
 
     public static void main(String[] args) {
+        System.out.println(RsqlBuilder.rsql().property("address").isNull().query());
         System.out.println(RsqlBuilder.rsql().bool("name").isTrue().query());
         System.out.println(RsqlBuilder.rsql().string("name").neq("t'es là").query());
         System.out.println(RsqlBuilder.rsql().string("name").eq("gaby").and().openGroup().intNum("age").gt(20).or().intNum("age").lte(40).closeGroup().query());

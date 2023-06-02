@@ -10,6 +10,9 @@ public enum Operator {
     NotEqual("!="), /**
      * Less than
      */
+    IsNull("=na="), /**
+     * Less than
+     */
     Less("=lt="), /**
      * Less than or equal to
      */

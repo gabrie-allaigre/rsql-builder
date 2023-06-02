@@ -13,4 +13,8 @@ public abstract class AbstractProperty<B> {
         this.field = field;
         this.fieldBuilder = fieldBuilder;
     }
+
+    public final B isNull() {
+        return fieldBuilder.isNull(field);
+    }
 }

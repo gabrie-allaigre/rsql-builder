@@ -14,6 +14,13 @@ import java.util.Arrays;
 public class RsqlBuilderTest {
 
     @Test
+    public void testRsqlPropertyBuilder() {
+        SoftAssertions softAssertions = new SoftAssertions();
+        softAssertions.assertThat(RsqlBuilder.rsql().property("address").isNull().query()).isEqualTo("address=na=''");
+        softAssertions.assertAll();
+    }
+
+    @Test
     public void testRsqlLongBuilder() {
         SoftAssertions softAssertions = new SoftAssertions();
         softAssertions.assertThat(RsqlBuilder.newCompletBuilder().is("name", "==", "gaby").query()).isEqualTo("name==gaby");
